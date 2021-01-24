@@ -81,3 +81,6 @@ function MetaData(id){
         select.append("h5").text(`${key}: ${value}`);
         });
       });
+    };
+
+    
