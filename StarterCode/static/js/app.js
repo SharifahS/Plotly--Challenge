@@ -83,4 +83,33 @@ function MetaData(id){
       });
     };
 
-    
+   //Menu 
+  function DropDown(){
+    //Retreive JSON
+    d3.json("samples.json").then((data)=> {
+      //Retreive id values in name list
+      var names = data.names;
+      //Select the dropdown menu
+      var select = document.getElementById("selDataset");
+      //Loop through each item in the name list to add in the dropdown menu
+      for (i=0; i< names.length; i++)
+      {
+        var option = document.createElement("Option");
+        var id = document.createTextNode(names[i]);
+        option.appendChild(id);
+        option.setAttribute("value",names[i]);
+        select.insertBefore(option, select.lastChild);
+      };
+    //Call the CreatePlot & MetaData function and display the visuals/demographics info from the first id
+    CreatePlot(names[0]);
+      MetaData(names[0]);
+    });
+  };
+  
+  //Create the function for the change event
+  function optionChanged(id) {
+    CreatePlot(id);
+    MetaData(id);
+  }
+  //Call DropDown() Function
+  DropDown();
