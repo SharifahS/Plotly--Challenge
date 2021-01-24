@@ -41,6 +41,7 @@ function CreatePlot(id) {
                 },
               };
       var data1 = [trace1];
+      
       // Bubble Chart
       var trace2={
         x: otuList,
@@ -63,5 +64,20 @@ function CreatePlot(id) {
       })
       };
 
-
-  
+// Demographics
+function MetaData(id){
+    //Retreive JSON 
+    d3.json("samples.json").then((data)=> {
+      var metadata = data.metadata;
+      //Filter metadata by ID
+      var metadataList = metadata.filter(object => object.id == id);
+      var results = metadataList[0]
+      //Select info box
+      var select = d3.select("#sample-metadata");
+      //Empty existing table
+      select.html("");
+      //Insert data
+      Object.entries(results).forEach(([key, value]) => {
+        select.append("h5").text(`${key}: ${value}`);
+        });
+      });
